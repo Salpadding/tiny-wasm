@@ -50,9 +50,9 @@ imp_is_zero!(f32);
 imp_is_zero!(f64);
 
 macro_rules! trunc_as {
-    ($this: expr, $f: ident, $f_l: ty, $t1: ty, $t2: ty) => {
+    ($this: expr, $f: ident, $f_l: ty, $t1: ty) => {
         let t = $this.top()?;
-        *t = $f::from_bits(*t as $f_l).trunc() as $t1 as $t2 as u64;
+        *t = $f::from_bits(*t as $f_l).trunc() as $t1 as u64;
     };
 }
 
@@ -359,7 +359,7 @@ impl Runnable for Instance {
             }
             opcodes::I32LOAD8S => {
                 let off = mem_off!(self, ins);
-                self.push(self.memory.load_u8(off)? as i8 as i32 as u32 as u64)?;
+                self.push(self.memory.load_u8(off)? as i8 as i32 as u64)?;
             }
             opcodes::I64LOAD8S => {
                 let off = mem_off!(self, ins);
@@ -371,7 +371,7 @@ impl Runnable for Instance {
             }
             opcodes::I32LOAD16S => {
                 let off = mem_off!(self, ins);
-                self.push(self.memory.load_u16(off)? as i16 as i32 as u32 as u64)?;
+                self.push(self.memory.load_u16(off)? as i16 as i32 as u64)?;
             }
             opcodes::I64LOAD16S => {
                 let off = mem_off!(self, ins);
@@ -733,32 +733,32 @@ impl Runnable for Instance {
                 bin_cmp_f64!(self, ge);
             }
             opcodes::I32TRUNCSF32 => {
-                trunc_as!(self, f32, u32, i32, u32);
+                trunc_as!(self, f32, u32, i32);
             }
             opcodes::I32TRUNCSF64 => {
-                trunc_as!(self, f64, u64, i32, u32);
+                trunc_as!(self, f64, u64, i32);
             }
             opcodes::I32TRUNCUF32 => {
-                trunc_as!(self, f32, u32, u32, u32);
+                trunc_as!(self, f32, u32, u32);
             }
             opcodes::I32TRUNCUF64 => {
-                trunc_as!(self, f64, u64, u32, u32);
+                trunc_as!(self, f64, u64, u32);
             }
             opcodes::I64EXTENDSI32 => {
                 let t = self.top()?;
                 *t = *t as u32 as i32 as i64 as u64;
             }
             opcodes::I64TRUNCSF32 => {
-                trunc_as!(self, f32, u32, i64, u64);
+                trunc_as!(self, f32, u32, i64);
             }
             opcodes::I64TRUNCUF32 => {
-                trunc_as!(self, f32, u32, u64, u64);
+                trunc_as!(self, f32, u32, u64);
             }
             opcodes::I64TRUNCUF64 => {
-                trunc_as!(self, f64, u64, u64, u64);
+                trunc_as!(self, f64, u64, u64);
             }
             opcodes::I64TRUNCSF64 => {
-                trunc_as!(self, f64, u64, i64, u64);
+                trunc_as!(self, f64, u64, i64);
             }
             opcodes::F32CONVERTSI32 => {
                 let t = self.top()?;

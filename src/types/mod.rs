@@ -329,10 +329,10 @@ mod test {
         test_spec("break-drop.wasm");
     }
 
-    // #[test]
-    // fn test_spec_call_indirect() {
-    //     test_spec("call_indirect.wasm");
-    // }
+    #[test]
+    fn test_spec_call_indirect() {
+        test_spec("call_indirect.wasm");
+    }
 
     #[test]
     fn test_spec_switch() {
@@ -424,5 +424,14 @@ mod test {
     #[test]
     fn test_spec_ret() {
         test_spec("return.wasm");
+    }
+
+    #[test]
+    fn print_neg_one() {
+        let i: i32 = -1;
+        let j = i as u64;
+        
+
+        println!("{}", crate::hex::to_hex(&j.to_be_bytes()));
     }
 }
